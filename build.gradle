@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
+}
+
+group = 'by.kufar'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+def selenideVersion = '7.0.4'
+def junitVersion = '5.10.1'
+def allureVersion = '2.25.0'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation "com.codeborne:selenide:$selenideVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+
+    testImplementation "io.qameta.allure:allure-selenide:$allureVersion"
+    testImplementation "io.qameta.allure:allure-junit5:$allureVersion"
+
+    testImplementation 'org.slf4j:slf4j-simple:2.0.9'
+}
+
+allure {
+    version = "$allureVersion"
+    adapter {
+        aspectjVersion.set("1.9.20.1")
+        frameworks {
+            junit5 {
+                adapterVersion.set("$allureVersion")
+            }
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
