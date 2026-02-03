@@ -10,7 +10,7 @@ public class SearchResultPage {
     private final SelenideElement listingsContainer = $("[data-name='listings']");
 
     public SelenideElement getHeading() {
-        return mainHeading.shouldBe(Condition.exist);
+        return mainHeading;
     }
 
     public SelenideElement getListings() {

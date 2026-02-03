@@ -21,10 +21,8 @@ public class MainPage {
     private final SelenideElement helpButton = $("#help");
 
     public void search(String text) {
-        searchInput.shouldBe(Condition.visible).click();
-        searchInput.clear();
         searchInput.setValue(text);
-        sleep(3000);
+        suggestions.shouldBe(Condition.visible, Duration.ofSeconds(5));
         searchInput.pressEnter();
     }
 
