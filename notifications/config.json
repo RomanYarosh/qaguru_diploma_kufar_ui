@@ -1,12 +1,10 @@
 {
   "base": {
-    "project": "some project",
-    "environment": "some env",
-    "comment": "some comment @roman_yarosh",
-    "reportLink": "https://jenkins.autotests.cloud/job/qaguru_diploma_kufar_ui/1/",
-    "language": "en",
-    "allureFolder": "C:/Users/user/AppData/Local/Temp/12160549619399180712/allure-report",
-    "enableChart": true
+    "project": "Kufar UI Tests",
+    "environment": "Jenkins",
+    "allureHttpClient": "jenkins",
+    "language": "ru",
+    "allureReportPath": "allure-report"
   },
   "telegram": {
     "token": "8328041007:AAG_rliF3Rm_O5xEoqLxB8KYxHt-Rc0-KLo",

@@ -51,7 +51,7 @@ public class MainPage {
     public void selectRegionInPopup(String regionName) {
         regionPopup.shouldBe(Condition.visible);
         regionPopup.$(byText(regionName)).click();
-        regionPopup.$(byText("Показать объявления")).click();
+        regionPopup.$("button").shouldHave(Condition.text("Показать")).click();
     }
 
     public SelenideElement getRegionSwitcher() {
