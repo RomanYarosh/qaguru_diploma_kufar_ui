@@ -20,8 +20,8 @@ public class MainPage {
     private final SelenideElement helpButton = $("#help");
 
     public void search(String text) {
-        searchInput.setValue(text);
-        suggestions.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        searchInput.shouldBe(Condition.visible).setValue(text);
+        searchInput.shouldHave(Condition.value(text));
         searchInput.pressEnter();
     }
 

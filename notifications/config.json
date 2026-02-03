@@ -1,10 +1,11 @@
 {
   "base": {
     "project": "Kufar UI Tests",
-    "environment": "Jenkins",
-    "allureHttpClient": "jenkins",
+    "environment": "Jenkins & Selenoid",
     "language": "ru",
-    "allureReportPath": "allure-report"
+    "allureFolder": "allure-report",
+    "logo": "https://www.kufar.by/static/img/kufar-logo.png",
+    "enableChart": true
   },
   "telegram": {
     "token": "8328041007:AAG_rliF3Rm_O5xEoqLxB8KYxHt-Rc0-KLo",
