@@ -4,8 +4,9 @@
     "environment": "Jenkins & Selenoid",
     "language": "ru",
     "allureFolder": "allure-report",
-    "logo": "https://www.kufar.by/static/img/kufar-logo.png",
-    "enableChart": true
+    "enableChart": true,
+    "comment": "Отчет по результатам прохождения UI тестов",
+    "reportLink": "https://jenkins.autotests.cloud/job/qaguru_diploma_kufar_ui/allure/"
   },
   "telegram": {
     "token": "8328041007:AAG_rliF3Rm_O5xEoqLxB8KYxHt-Rc0-KLo",

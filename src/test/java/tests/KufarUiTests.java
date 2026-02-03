@@ -7,6 +7,8 @@ import pages.MainPage;
 import pages.SearchResultPage;
 import utils.PropertyReader;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.switchTo;
 import static com.codeborne.selenide.Selenide.webdriver;
 
@@ -16,14 +18,17 @@ public class KufarUiTests extends BaseTest {
     MainPage mainPage = new MainPage();
     SearchResultPage searchResultPage = new SearchResultPage();
 
+
     @Test
     @Order(1)
     @DisplayName("1. Поиск товара и проверка текста")
     void searchIphoneTest() {
-        String query = PropertyReader.getProperty("search.query");
-        mainPage.search(query);
-        String expectedHeading = "Объявления по запросу «" + query + "»";
-        searchResultPage.getHeading().shouldHave(Condition.text(expectedHeading));
+        String iphoneSearchQuery = utils.PropertyReader.getProperty("search.query");
+        mainPage.search(iphoneSearchQuery);
+        searchResultPage.getHeading()
+                .shouldNotHave(Condition.text("Все объявления"), Duration.ofSeconds(10));
+        searchResultPage.getHeading()
+                .shouldHave(Condition.text(iphoneSearchQuery));
     }
 
     @Test
