@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,21 +20,27 @@ public class BaseTest {
 
     @BeforeAll
     static void setup() {
-        Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("browserVersion", "122.0");
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
         Configuration.baseUrl = "https://www.kufar.by";
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browser_version", "128.0");
+        Configuration.remote = System.getProperty("remote");
         Configuration.timeout = 5000;
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true,
+                "enableFileUploads", true
+        ));
+        Configuration.browserCapabilities = capabilities;
 
-        String remoteUrl = System.getProperty("remoteUrl"); // Передаем из Jenkins, напр. http://localhost:4444/wd/hub
+        String remoteUrl = System.getProperty("remoteUrl");
         if (remoteUrl != null) {
             Configuration.remote = remoteUrl;
-
-            // Настройки для того, чтобы в Selenoid UI можно было смотреть экран (VNC) и записывать видео
-            DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                     "enableVNC", true,
-                    "enableVideo", true
+                    "enableVideo", true,
+                    "enableFileUploads", true
             ));
             Configuration.browserCapabilities = capabilities;
         }
@@ -62,11 +69,15 @@ public class BaseTest {
                 "document.querySelectorAll('[id^=\"google_ads\"], .adsbygoogle, [class*=\"banner\"], [class*=\"promo\"]').forEach(el => el.remove());"
         );
 
-        sleep(500); // Небольшая пауза для завершения анимаций
+        sleep(500);
     }
 
     @AfterEach
     void tearDown() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
         Selenide.closeWebDriver();
     }
 }
