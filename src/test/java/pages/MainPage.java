@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class MainPage {
 
     private final SelenideElement searchInput = $("[data-testid='searchbar-input']");
+    private final SelenideElement regionModal = $("[data-testid='inview-testid']");
     private final SelenideElement searchButton = $("[data-testid='searchbar-search-button']");
     private final SelenideElement suggestions = $("[class*='styles_suggestions']");
     private final SelenideElement headerTabs = $(".styles_top_header__PXNqm");
@@ -21,10 +22,15 @@ public class MainPage {
     private final SelenideElement helpButton = $("#help");
 
     public void search(String text) {
-        searchInput.setValue(text);
-        suggestions.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        searchInput.shouldBe(Condition.visible).setValue(text);
+        suggestions.shouldBe(Condition.visible, Duration.ofSeconds(8));
         searchInput.pressEnter();
+        if (regionModal.is(Condition.visible)) {
+            regionModal.click();
+            regionModal.shouldNotBe(Condition.visible);
+        }
     }
+
 
     public void searchWithoutSuggestions(String text) {
         searchInput.setValue(text);
