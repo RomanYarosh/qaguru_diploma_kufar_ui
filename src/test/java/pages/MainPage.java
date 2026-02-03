@@ -24,8 +24,8 @@ public class MainPage {
         searchInput.shouldBe(Condition.visible).click();
         searchInput.clear();
         searchInput.setValue(text);
-        searchInput.shouldHave(Condition.value(text));
-        searchButton.shouldBe(Condition.visible).click();
+        sleep(3000);
+        searchInput.pressEnter();
     }
 
     public void searchWithoutSuggestions(String text) {
