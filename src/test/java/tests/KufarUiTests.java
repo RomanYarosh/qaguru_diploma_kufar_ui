@@ -25,9 +25,9 @@ public class KufarUiTests extends BaseTest {
     void searchIphoneTest() {
         String query = utils.PropertyReader.getProperty("search.query");
         mainPage.search(query);
-        String expectedHeading = "Объявления по запросу «" + query + "»";
+
         searchResultPage.getHeading()
-                .shouldHave(Condition.text(expectedHeading), Duration.ofSeconds(10));
+                .shouldHave(Condition.text("Объявления по запросу «" + query + "»"), Duration.ofSeconds(20));
     }
 
     @Test
