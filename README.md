@@ -58,14 +58,14 @@
 
    `clean test`
 
-### 2. Удаленный запуск в Jenkins
+### 2. Удаленный запуск в [Jenkins](https://jenkins.autotests.cloud/job/qaguru_diploma_kufar_ui/)
 Сборка настроена в **Jenkins**.
 -  Тесты выполняются удаленно в контейнерах **Selenoid**.
 <p align="center">
 <img src="images/screenshots/jenkins.png" width="850">
 </p>
 
-### 3. Allure Report
+### 3. [Allure Report](https://jenkins.autotests.cloud/job/qaguru_diploma_kufar_ui/17/allure/)
 После завершения тестов генерируется подробный отчет, который включает:
 -  Шаги выполнения каждого теста (@Step).
 -  Скриншот страницы на момент падения (или успеха).
@@ -76,7 +76,7 @@
 
 ## 📊 Результаты визуализации (Примеры)
 
-### Главная страница Allure
+### Главная страница [Allure](https://jenkins.autotests.cloud/job/qaguru_diploma_kufar_ui/17/allure/)
 <p align="center">
 <img src="images/screenshots/allure_main.png" width="850">
 </p>
