@@ -65,6 +65,6 @@ public class KufarUiTests extends BaseTest {
 
         mainPage.openRegionSwitcher();
         mainPage.selectRegionInPopup(region);
-        mainPage.getRegionSwitcher().shouldHave(Condition.text(region));
+        mainPage.checkSelectedRegion(region);
     }
 }

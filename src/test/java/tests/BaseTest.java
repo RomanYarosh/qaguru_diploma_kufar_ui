@@ -20,41 +20,33 @@ public class BaseTest {
 
     @BeforeAll
     static void setup() {
-        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
         Configuration.baseUrl = "https://www.kufar.by";
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser_version", "128.0");
-        Configuration.remote = System.getProperty("remote");
         Configuration.timeout = 5000;
+
+        Configuration.remote = System.getProperty("remote");
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", true,
                 "enableFileUploads", true
         ));
+        capabilities.setCapability("goog:chromeOptions", Map.<String, Object>of(
+                "args", java.util.List.of("--disable-notifications", "--disable-popup-blocking")
+        ));
         Configuration.browserCapabilities = capabilities;
+    }
 
-        String remoteUrl = System.getProperty("remoteUrl");
-        if (remoteUrl != null) {
-            Configuration.remote = remoteUrl;
-            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                    "enableVNC", true,
-                    "enableVideo", true,
-                    "enableFileUploads", true
-            ));
-            Configuration.browserCapabilities = capabilities;
-        }
+    @BeforeEach
+    void setupTest() {
         SelenideLogger.addListener("allure", new AllureSelenide()
                 .screenshots(true)
                 .savePageSource(false)
         );
 
-        Configuration.browserCapabilities.setCapability("goog:chromeOptions",
-                java.util.Map.of("args", java.util.List.of("--disable-notifications", "--disable-popup-blocking")));
-    }
-
-    @BeforeEach
-    void setupTest() {
         open("/");
 
         if ($(byText("Принять")).is(Condition.visible)) {
@@ -78,6 +70,7 @@ public class BaseTest {
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
+
         Selenide.closeWebDriver();
     }
 }

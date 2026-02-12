@@ -11,7 +11,6 @@ public class MainPage {
 
     private final SelenideElement searchInput = $("[data-testid='searchbar-input']");
     private final SelenideElement regionModal = $("[data-testid='inview-testid']");
-    private final SelenideElement searchButton = $("[data-testid='searchbar-search-button']");
     private final SelenideElement suggestions = $("[class*='styles_suggestions']");
     private final SelenideElement headerTabs = $(".styles_top_header__PXNqm");
 
@@ -61,7 +60,7 @@ public class MainPage {
         regionPopup.$("button").shouldHave(Condition.text("Показать")).click();
     }
 
-    public SelenideElement getRegionSwitcher() {
-        return regionSwitcher;
+    public void checkSelectedRegion(String expectedRegion) {
+        regionSwitcher.shouldHave(Condition.text(expectedRegion));
     }
 }
