@@ -25,6 +25,7 @@ public class BaseTest {
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browser_version", "128.0");
         Configuration.timeout = 5000;
+        Configuration.pageLoadStrategy = "eager";
 
         Configuration.remote = System.getProperty("remote");
 
@@ -47,21 +48,23 @@ public class BaseTest {
                 .savePageSource(false)
         );
 
-        open("/");
+        open("");
 
-        if ($(byText("Принять")).is(Condition.visible)) {
+        handleInitialPopups();
+    }
+
+    private void handleInitialPopups() {
+        if ($(byText("Принять")).exists()) {
             $(byText("Принять")).click();
         }
 
-        if ($("[data-testid='selection-close']").is(Condition.visible)) {
+        if ($("[data-testid='selection-close']").exists()) {
             $("[data-testid='selection-close']").click();
         }
 
         executeJavaScript(
                 "document.querySelectorAll('[id^=\"google_ads\"], .adsbygoogle, [class*=\"banner\"], [class*=\"promo\"]').forEach(el => el.remove());"
         );
-
-        sleep(500);
     }
 
     @AfterEach

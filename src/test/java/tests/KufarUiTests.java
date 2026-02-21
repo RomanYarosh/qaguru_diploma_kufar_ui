@@ -23,9 +23,8 @@ public class KufarUiTests extends BaseTest {
     void searchIphoneTest() {
         String query = utils.PropertyReader.getProperty("search.query");
         mainPage.search(query);
-
         searchResultPage.getHeading()
-                .shouldHave(Condition.text("Объявления по запросу «" + query + "»"), Duration.ofSeconds(20));
+                .shouldHave(Condition.text("Объявления по запросу «" + query + "»"), Duration.ofSeconds(10));
     }
 
     @Test
@@ -40,9 +39,8 @@ public class KufarUiTests extends BaseTest {
     @DisplayName("Поиск некорректных данных")
     void invalidSearchDataTest() {
         String invalidQuery = PropertyReader.getProperty("search.invalid");
-
         mainPage.searchWithoutSuggestions(invalidQuery);
-        searchResultPage.getListings().shouldHave(Condition.text("Мы это не нашли"));
+        searchResultPage.getListings().shouldHave(Condition.text("Мы это не нашли"), Duration.ofSeconds(10));
     }
 
     @Test
